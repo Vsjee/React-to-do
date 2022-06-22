@@ -3,12 +3,15 @@ import { TaskRow } from "./taskRow";
 export const TaskTable = ({ task, toggleTask, showComplete = false }) => {
 
   const taskTableRows = (doneValue) => {
-
     return (
       task
         .filter(task => task.done === doneValue)
         .map(task => (
-          <TaskRow task={task} key={task.name} toggleTask={toggleTask} />
+          <TaskRow
+            task={task}
+            key={task.name}
+            toggleTask={toggleTask}
+          />
         ))
     )
   }

@@ -4,30 +4,21 @@ import { TaskCreator } from './components/taskCreator';
 import { TaskTable } from './components/taskTable';
 import { VisibilityControl } from './components/visibilityControl';
 import { Container } from './components/container';
-import { Head } from './components/header/head';
+import { Head } from './components/header/headBanner';
 
 function App() {
 
   const [taskItems, setTasksItems] = useState([]);
   const [showComplete, setShowComplete] = useState(false);
-  const [counter, setCounter] = useState(0);
 
   //Create a new task
   function createNewTask(taskName) {
     if (!taskItems.find(item => item.name === taskName)) {
       setTasksItems([...taskItems, { name: taskName, done: false }]);
-
-      setCounter(counter + 1);
     }
   }
 
-  //Head Status
-  const otro = (taskStatus) => {
-    if (!taskItems.find(item => item.done === taskStatus)) {
-      setCounter(counter - 1);
-    }
-  }
-
+  //toggle
   const toggleTask = (task) => {
     setTasksItems(
       taskItems.map((t) => (t.name === task.name) ? { ...t, done: !t.done } : t)
@@ -46,22 +37,16 @@ function App() {
     if (data) {
       setTasksItems(JSON.parse(data));
     }
-
-    let counterData = localStorage.getItem('active-task')
-    if (counterData) {
-      setCounter(JSON.parse(counterData))
-    }
   }, [])
 
   //Local Storage for new Tasks
   useEffect(() => {
     localStorage.setItem('task', JSON.stringify(taskItems)) //Save the task
-    localStorage.setItem('active-task', JSON.stringify(counter)) //Save the active-tasks
-  }, [taskItems, counter])
+  }, [taskItems])
 
   return (
     <main className="bg-dark vh-100 text-white">
-      <Head counter={counter} />
+      <Head taskItems={taskItems} />
       <Container>
         <TaskCreator createNewTask={createNewTask} />
         <TaskTable
@@ -76,7 +61,7 @@ function App() {
         />
 
         {showComplete === true && (
-          <TaskTable
+          < TaskTable
             task={taskItems}
             toggleTask={toggleTask}
             showComplete={showComplete}

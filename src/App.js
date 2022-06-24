@@ -45,7 +45,7 @@ function App() {
   }, [taskItems])
 
   return (
-    <main className="bg-dark vh-100 text-white">
+    <main className="vh-100 text-white">
       <Head taskItems={taskItems} />
       <Container>
         <TaskCreator createNewTask={createNewTask} />

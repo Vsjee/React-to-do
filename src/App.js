@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import './App.css';
 import { TaskCreator } from './components/taskCreator';
 import { TaskTable } from './components/taskTable';
 import { VisibilityControl } from './components/visibilityControl';
